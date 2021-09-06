@@ -18,6 +18,10 @@ const capitalCities = [
     {
         name: "Moscou",
         tz: "Europe/Moscow"
+    },
+    {
+        name: "Berlin",
+        tz: "Europe/Paris"
     }
 ];
 
