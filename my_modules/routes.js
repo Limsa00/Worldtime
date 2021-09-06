@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const capitalCities = require('./capitalCities');
 
 router.get('/', (req, res) => {
     res.sendFile('index.html', {
@@ -8,19 +9,25 @@ router.get('/', (req, res) => {
     });
 });
 
-// router.get('/race/:name', (req, res) => {
+router.get('/city/:slug', (req,res) => {
 
-//     const race = races[req.params.name];
+    const cityName = req.params.slug.toLowerCase();
 
-//     if (typeof race === 'undefined') {
-//         res.status(404).send('Erreur 404');
-//         return;
-//     }
+    for (let index = 0; index < capitalCities.length; index++) {
+        const city = capitalCities[index];
 
-//     res.render('race', {
-//         pagetitle: `Infos de la race ${race.name}`,
-//         race: race
-//     });
-// });
+        // console.log('cityName : ', cityName);
+        // console.log('city.name.toLowerCase() : ', city.name.toLowerCase());
+        
+        if(cityName === city.name.toLowerCase()){
+            res.type('html');
+            res.send(`<h1>Heure de ${city.name}</h1>`)
+            return
+        }
+    }
+
+    res.status(404).send('Erreur');
+})
+
 
 module.exports = router;
